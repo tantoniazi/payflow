@@ -11,8 +11,8 @@ module Payflow
                dependent: :destroy
     end
 
-    def subscribe!(plan:)
-      SubscriptionService.new(billable: self).subscribe!(plan: plan)
+    def subscribe!(plan:, provider: Payflow.config.provider)
+      SubscriptionService.new(billable: self).subscribe!(plan: plan, provider: provider)
     end
 
     def cancel_subscription!
@@ -25,6 +25,10 @@ module Payflow
 
     def active_subscription?
       subscription&.active?
+    end
+
+    def can_access_system?
+      active_subscription? && !subscription&.overdue?
     end
   end
 end

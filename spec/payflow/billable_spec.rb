@@ -7,7 +7,7 @@ RSpec.describe Payflow::Billable do
 
   before do
     Payflow.configure do |config|
-      config.default_provider = :asaas
+      config.provider = :asaas
       config.asaas_api_key = "test_key"
     end
 
@@ -42,6 +42,14 @@ RSpec.describe Payflow::Billable do
       organization.subscribe!(plan: "premium")
 
       expect(organization).to be_active_subscription
+    end
+  end
+
+  describe "#can_access_system?" do
+    it "returns true for active non-overdue subscriptions" do
+      organization.subscribe!(plan: "premium")
+
+      expect(organization).to be_can_access_system
     end
   end
 end

@@ -6,6 +6,7 @@
 /log/*
 !/log/.keep
 /pkg/
+*.gem
 /spec/dummy/db/*.sqlite3
 /spec/dummy/log/*
 /spec/dummy/storage/*

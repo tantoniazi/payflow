@@ -1,18 +1,19 @@
 # frozen_string_literal: true
 
+require_relative "customer"
 require_relative "subscription"
 require_relative "webhook"
 
 module Payflow
   module Providers
-    module Stripe
-      class Client < Base
+    module Asaas
+      class Provider < Base
         def initialize
-          super(provider_name: :stripe)
+          super(provider_name: :asaas)
         end
 
         def create_customer(attrs)
-          { id: "cus_stripe_stub_#{SecureRandom.hex(4)}", provider: :stripe, email: attrs[:email], name: attrs[:name] }
+          Customer.new(self).create(attrs)
         end
 
         def create_subscription(customer_id:, plan_id:, **options)

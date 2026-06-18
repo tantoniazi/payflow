@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 module Payflow
-  module Provider
+  class ProviderResolver
     REGISTRY = {
-      asaas: Payflow::Providers::Asaas::Client,
-      stripe: Payflow::Providers::Stripe::Client
+      asaas: Providers::Asaas::Provider,
+      stripe: Providers::Stripe::Provider
     }.freeze
 
-    def self.resolve(name = nil)
-      key = (name || Payflow.config.default_provider).to_sym
+    def self.for(name)
+      key = name.to_sym
       klass = REGISTRY[key]
       raise ProviderNotFoundError, "Unknown provider: #{key}" unless klass
 

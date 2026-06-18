@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 require "bundler/setup"
+require "bundler/gem_tasks"
 require "rspec/core/rake_task"
 require "payflow"
 
-APP_RAKEFILE = File.expand_path("spec/dummy/config/application", __dir__)
+APP_RAKEFILE = File.expand_path("spec/dummy/Rakefile", __dir__)
 load "rails/tasks/engine.rake"
 load "rails/tasks/statistics.rake"
 

@@ -12,9 +12,9 @@ require "payflow/errors"
 require "payflow/events"
 require "payflow/configuration"
 require "payflow/providers/base"
-require "payflow/providers/asaas/client"
-require "payflow/providers/stripe/client"
-require "payflow/provider"
+require "payflow/providers/asaas/provider"
+require "payflow/providers/stripe/provider"
+require "payflow/provider_resolver"
 require "payflow/subscription_service"
 require "payflow/billable"
 require "payflow/webhooks/signature_verifier"
@@ -33,7 +33,7 @@ module Payflow
     end
 
     def provider(name = nil)
-      Provider.resolve(name)
+      ProviderResolver.for(name || config.provider)
     end
   end
 end

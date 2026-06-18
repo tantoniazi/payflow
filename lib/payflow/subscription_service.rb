@@ -6,11 +6,11 @@ module Payflow
       @billable = billable
     end
 
-    def subscribe!(plan:)
+    def subscribe!(plan:, provider: Payflow.config.provider)
       current = @billable.subscription
       raise SubscriptionError, "Already subscribed" if current&.active?
 
-      client = Payflow.provider(Payflow.config.provider)
+      client = Payflow.provider(provider)
       remote = client.create_subscription(
         customer_id: customer_id_for(@billable),
         plan_id: plan
@@ -19,7 +19,7 @@ module Payflow
       Subscription.create!(
         billable: @billable,
         plan: plan,
-        provider: Payflow.config.provider.to_s,
+        provider: provider.to_s,
         external_id: remote[:id],
         status: :active
       )

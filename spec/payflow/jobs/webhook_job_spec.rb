@@ -14,21 +14,18 @@ RSpec.describe Payflow::WebhookJob do
     )
   end
 
-  let(:webhook_event) do
-    Payflow::WebhookEvent.create!(
-      provider: "asaas",
-      payload: {
-        "event" => "PAYMENT_OVERDUE",
-        "payment" => { "subscription" => "sub_ext_123" }
-      },
-      status: :pending
-    )
+  let(:payload) do
+    {
+      "event" => "PAYMENT_OVERDUE",
+      "payment" => { "subscription" => "sub_ext_123" }
+    }
   end
 
   it "processes the webhook and marks subscription overdue" do
-    described_class.perform_now(webhook_event.id)
+    described_class.perform_now(provider: :asaas, payload: payload)
 
-    expect(webhook_event.reload).to be_processed
+    event = Payflow::WebhookEvent.last
+    expect(event).to be_processed
     expect(subscription.reload).to be_overdue
   end
 end

@@ -11,5 +11,9 @@ module Payflow
     }
 
     validates :provider, :payload, presence: true
+
+    def processed?
+      status == "processed"
+    end
   end
 end

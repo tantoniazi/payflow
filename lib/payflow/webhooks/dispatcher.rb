@@ -23,8 +23,6 @@ module Payflow
         when SUBSCRIPTION_DELETED
           mark_subscription_cancelled(payload)
         end
-
-        @webhook_event.update!(status: :processed, processed_at: Time.current)
       end
 
       private

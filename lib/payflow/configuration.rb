@@ -2,18 +2,18 @@
 
 module Payflow
   class Configuration
-    attr_accessor :default_provider,
+    attr_accessor :provider,
                   :asaas_api_key,
                   :asaas_webhook_token,
                   :stripe_api_key,
                   :stripe_webhook_secret,
                   :billable_class_name
 
-    alias provider= default_provider=
-    alias provider default_provider
+    alias default_provider provider
+    alias default_provider= provider=
 
     def initialize
-      @default_provider = :asaas
+      @provider = :asaas
       @billable_class_name = nil
     end
 

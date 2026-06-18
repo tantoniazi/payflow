@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Payflow
-  class OverdueCheckJob < ApplicationJob
+  class OverdueAccountsJob < ApplicationJob
     queue_as :payflow
 
     def perform

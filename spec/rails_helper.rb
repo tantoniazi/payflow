@@ -26,7 +26,7 @@ RSpec.configure do |config|
     ActiveRecord::MigrationContext.new(ActiveRecord::Migrator.migrations_paths).migrate
 
     Payflow.configure do |payflow_config|
-      payflow_config.default_provider = :asaas
+      payflow_config.provider = :asaas
       payflow_config.asaas_api_key = "test_key"
       payflow_config.asaas_webhook_token = "test_asaas_token"
       payflow_config.stripe_webhook_secret = "whsec_test"

@@ -11,7 +11,8 @@ module Payflow
       pending: "pending",
       active: "active",
       overdue: "overdue",
-      cancelled: "cancelled"
+      cancelled: "cancelled",
+      expired: "expired"
     }
 
     validates :plan, :provider, :external_id, presence: true
