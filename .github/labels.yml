@@ -1,0 +1,26 @@
+# Sincronize com: npx github-label-sync --labels .github/labels.yml
+# ou micnncim/action-gh-label-sync no CI
+
+- name: good first issue
+  color: "7057ff"
+  description: "Boa primeira contribuição para quem está começando"
+
+- name: provider:asaas
+  color: "1d76db"
+  description: "Relacionado ao provedor Asaas"
+
+- name: provider:stripe
+  color: "635bff"
+  description: "Relacionado ao provedor Stripe"
+
+- name: webhook
+  color: "fbca04"
+  description: "Receptor, verificação de assinatura, dispatch e idempotência"
+
+- name: core
+  color: "d73a4a"
+  description: "Engine, models, services e API pública da gem"
+
+- name: documentation
+  color: "0075ca"
+  description: "README, roadmap, guias e documentação de API"

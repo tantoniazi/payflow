@@ -1,0 +1,30 @@
+# frozen_string_literal: true
+
+module Payflow
+  module Billable
+    extend ActiveSupport::Concern
+
+    included do
+      has_many :payflow_subscriptions,
+               as: :billable,
+               class_name: "Payflow::Subscription",
+               dependent: :destroy
+    end
+
+    def subscribe!(plan:)
+      SubscriptionService.new(billable: self).subscribe!(plan: plan)
+    end
+
+    def cancel_subscription!
+      SubscriptionService.new(billable: self).cancel!
+    end
+
+    def subscription
+      payflow_subscriptions.order(created_at: :desc).first
+    end
+
+    def active_subscription?
+      subscription&.active?
+    end
+  end
+end

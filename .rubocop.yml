@@ -1,0 +1,51 @@
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.1
+  SuggestExtensions: false
+  Exclude:
+    - "spec/dummy/**/*"
+    - "db/schema.rb"
+    - "vendor/**/*"
+    - "Appraisals"
+
+Style/Documentation:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 120
+  AllowedPatterns: ['\A\s*(class|module) ']
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*"
+    - "*.gemspec"
+
+Lint/UnusedMethodArgument:
+  Enabled: false
+
+Gemspec/DevelopmentDependencies:
+  Enabled: false
+
+Gemspec/OrderedDependencies:
+  Enabled: false
+
+Gemspec/RequireMFA:
+  Enabled: false
+
+Lint/RedundantDirGlobSort:
+  Enabled: false
