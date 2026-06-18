@@ -1,0 +1,59 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      - name: Install dependencies
+        run: bundle install
+
+      - name: Run Rubocop
+        run: bundle exec rubocop
+
+      - name: Run RSpec
+        run: bundle exec rspec
+
+  publish:
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract and verify version
+        run: |
+          TAG_VERSION="${GITHUB_REF#refs/tags/v}"
+          GEM_VERSION=$(ruby -r ./lib/payflow/version -e 'puts Payflow::VERSION')
+          if [ "$TAG_VERSION" != "$GEM_VERSION" ]; then
+            echo "Tag version v${TAG_VERSION} does not match Payflow::VERSION (${GEM_VERSION})"
+            exit 1
+          fi
+          echo "VERSION=${TAG_VERSION}" >> "$GITHUB_ENV"
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      - name: Build gem
+        run: gem build payflow.gemspec
+
+      - name: Publish to RubyGems
+        env:
+          GEM_HOST_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
+        run: gem push payflow-${{ env.VERSION }}.gem

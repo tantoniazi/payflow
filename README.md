@@ -1,5 +1,8 @@
 # Payflow
 
+[![CI](https://github.com/tantoniazi/payflow/actions/workflows/ci.yml/badge.svg)](https://github.com/tantoniazi/payflow/actions/workflows/ci.yml)
+[![Release](https://github.com/tantoniazi/payflow/actions/workflows/release.yml/badge.svg)](https://github.com/tantoniazi/payflow/actions/workflows/release.yml)
+
 Unified billing engine for Rails applications. Payflow abstracts subscription management and payment webhooks behind a provider-agnostic API.
 
 **MVP 0.1.0 providers:** Asaas (functional), Stripe (basic).
